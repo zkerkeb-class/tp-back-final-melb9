@@ -10,7 +10,6 @@ app.use('/assets', express.static('assets'));
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
-// --- GET : Liste + Recherche + Pagination ---
 app.get('/pokemons', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -36,7 +35,6 @@ app.get('/pokemons', async (req, res) => {
   }
 });
 
-// --- GET : Un seul pokemon ---
 app.get('/pokemons/:id', async (req, res) => {
   try {
     const poke = await pokemon.findOne({ id: parseInt(req.params.id) });
@@ -46,7 +44,6 @@ app.get('/pokemons/:id', async (req, res) => {
   }
 });
 
-// --- POST : Créer ---
 app.post('/pokemons', async (req, res) => {
     try {
         const newPoke = new pokemon(req.body);
@@ -57,7 +54,6 @@ app.post('/pokemons', async (req, res) => {
     }
 });
 
-// --- PUT : Modifier ---
 app.put('/pokemons/:id', async (req, res) => {
     try {
         const updated = await pokemon.findOneAndUpdate({ id: parseInt(req.params.id) }, req.body, { new: true });
@@ -67,7 +63,6 @@ app.put('/pokemons/:id', async (req, res) => {
     }
 });
 
-// --- DELETE : Supprimer ---
 app.delete('/pokemons/:id', async (req, res) => {
     try {
         await pokemon.findOneAndDelete({ id: parseInt(req.params.id) });
